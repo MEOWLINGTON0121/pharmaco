@@ -1,0 +1,2372 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2869
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica-Bold;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\b\fs24 \cf0 <!DOCTYPE html>\
+<html lang="en">\
+<head>\
+<meta charset="UTF-8">\
+<title>Jeopardy Pro \'97 Pharmacology Edition</title>\
+<meta name="viewport" content="width=device-width, initial-scale=1">\
+<link rel="preconnect" href="https://fonts.googleapis.com">\
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">\
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">\
+<style>\
+:root \{\
+  --jep-blue: #0a1d5c;\
+  --jep-blue-dark: #050f30;\
+  --jep-blue-light: #1a3a8e;\
+  --jep-blue-card: #1d3a8a;\
+  --jep-blue-card-lit: #2849a8;\
+  --jep-gold: #ffcc00;\
+  --jep-gold-bright: #ffd700;\
+  --jep-red: #d71920;\
+  --jep-green: #2ec866;\
+  --bg: #050f30;\
+  --panel: #0d1e54;\
+  --panel-light: #14306e;\
+  --text: #ffffff;\
+  --text-dim: #9ba8c8;\
+  --border: #1f3a7a;\
+  --shadow: 0 8px 32px rgba(0,0,0,0.5);\
+\}\
+\
+* \{ margin: 0; padding: 0; box-sizing: border-box; \}\
+\
+html, body \{ height: 100%; \}\
+\
+body \{\
+  font-family: 'DM Sans', sans-serif;\
+  background: var(--bg);\
+  color: var(--text);\
+  min-height: 100vh;\
+  overflow-x: hidden;\
+  position: relative;\
+\}\
+\
+body::before \{\
+  content: '';\
+  position: fixed;\
+  inset: 0;\
+  background:\
+    radial-gradient(ellipse 80% 60% at 50% 0%, rgba(40, 73, 168, 0.45), transparent 60%),\
+    radial-gradient(ellipse 60% 50% at 50% 100%, rgba(255, 204, 0, 0.06), transparent 70%),\
+    linear-gradient(180deg, #050f30 0%, #020817 100%);\
+  pointer-events: none;\
+  z-index: 0;\
+\}\
+\
+body::after \{\
+  content: '';\
+  position: fixed;\
+  inset: 0;\
+  background-image:\
+    repeating-linear-gradient(0deg, transparent 0 40px, rgba(255,255,255,0.012) 40px 41px),\
+    repeating-linear-gradient(90deg, transparent 0 40px, rgba(255,255,255,0.012) 40px 41px);\
+  pointer-events: none;\
+  z-index: 0;\
+\}\
+\
+#app \{ position: relative; z-index: 1; \}\
+\
+/* === SCREENS === */\
+.screen \{ display: none; min-height: 100vh; \}\
+.screen.active \{ display: block; \}\
+\
+/* === SETUP SCREEN === */\
+#setup-screen \{ padding: 40px 20px; max-width: 1100px; margin: 0 auto; \}\
+\
+.brand \{\
+  text-align: center;\
+  margin-bottom: 50px;\
+  padding-top: 30px;\
+\}\
+.brand .logo \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(56px, 10vw, 140px);\
+  letter-spacing: 4px;\
+  line-height: 0.9;\
+  background: linear-gradient(180deg, #fff 0%, #ffcc00 60%, #d4a000 100%);\
+  -webkit-background-clip: text;\
+  background-clip: text;\
+  color: transparent;\
+  text-shadow: 0 0 40px rgba(255, 204, 0, 0.25);\
+  filter: drop-shadow(0 6px 20px rgba(0,0,0,0.6));\
+\}\
+.brand .tagline \{\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 20px;\
+  letter-spacing: 6px;\
+  color: var(--text-dim);\
+  margin-top: 8px;\
+  text-transform: uppercase;\
+\}\
+.brand .bar \{\
+  width: 80px;\
+  height: 4px;\
+  background: var(--jep-gold);\
+  margin: 16px auto 0;\
+  border-radius: 2px;\
+\}\
+\
+.setup-grid \{\
+  display: grid;\
+  grid-template-columns: 1.2fr 1fr;\
+  gap: 28px;\
+  margin-top: 20px;\
+\}\
+@media (max-width: 880px) \{\
+  .setup-grid \{ grid-template-columns: 1fr; \}\
+\}\
+\
+.panel \{\
+  background: linear-gradient(180deg, rgba(20, 48, 110, 0.7), rgba(13, 30, 84, 0.7));\
+  border: 1px solid var(--border);\
+  border-radius: 16px;\
+  padding: 28px;\
+  box-shadow: var(--shadow);\
+  backdrop-filter: blur(10px);\
+\}\
+.panel h2 \{\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 22px;\
+  letter-spacing: 2px;\
+  text-transform: uppercase;\
+  margin-bottom: 20px;\
+  color: var(--jep-gold);\
+  display: flex;\
+  align-items: center;\
+  gap: 12px;\
+\}\
+.panel h2 i \{ color: var(--jep-gold); \}\
+\
+.field \{ margin-bottom: 18px; \}\
+.field label \{\
+  display: block;\
+  font-family: 'Oswald', sans-serif;\
+  text-transform: uppercase;\
+  letter-spacing: 1.5px;\
+  font-size: 12px;\
+  color: var(--text-dim);\
+  margin-bottom: 8px;\
+\}\
+.field input[type="text"],\
+.field input[type="number"],\
+.field textarea,\
+.field select \{\
+  width: 100%;\
+  background: rgba(5, 15, 48, 0.7);\
+  border: 1px solid var(--border);\
+  border-radius: 8px;\
+  padding: 12px 14px;\
+  color: var(--text);\
+  font-family: 'DM Sans', sans-serif;\
+  font-size: 15px;\
+  outline: none;\
+  transition: border-color .2s, box-shadow .2s;\
+\}\
+.field input:focus, .field textarea:focus, .field select:focus \{\
+  border-color: var(--jep-gold);\
+  box-shadow: 0 0 0 3px rgba(255,204,0,0.15);\
+\}\
+.field textarea \{ resize: vertical; min-height: 80px; \}\
+\
+.players-list \{ display: flex; flex-direction: column; gap: 10px; \}\
+.player-row \{\
+  display: grid;\
+  grid-template-columns: 40px 1fr 50px;\
+  gap: 10px;\
+  align-items: center;\
+\}\
+.player-row .swatch \{\
+  width: 36px;\
+  height: 36px;\
+  border-radius: 8px;\
+  border: 2px solid rgba(255,255,255,0.2);\
+  cursor: pointer;\
+  position: relative;\
+  overflow: hidden;\
+\}\
+.player-row .swatch input[type="color"] \{\
+  position: absolute;\
+  inset: -4px;\
+  width: calc(100% + 8px);\
+  height: calc(100% + 8px);\
+  border: none;\
+  cursor: pointer;\
+  opacity: 0;\
+\}\
+.player-row input[type="text"] \{ background: rgba(5,15,48,0.7); border: 1px solid var(--border); border-radius: 8px; padding: 10px; color: var(--text); font-family: 'DM Sans'; \}\
+.player-row .remove-btn \{\
+  background: rgba(215, 25, 32, 0.15);\
+  border: 1px solid rgba(215, 25, 32, 0.4);\
+  color: #ff6b6b;\
+  width: 36px;\
+  height: 36px;\
+  border-radius: 8px;\
+  cursor: pointer;\
+  font-size: 16px;\
+  transition: all .2s;\
+\}\
+.player-row .remove-btn:hover \{ background: rgba(215, 25, 32, 0.3); \}\
+\
+.btn \{\
+  background: linear-gradient(180deg, var(--jep-blue-light), var(--jep-blue));\
+  border: 1px solid var(--border);\
+  color: var(--text);\
+  padding: 12px 22px;\
+  border-radius: 10px;\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 15px;\
+  letter-spacing: 2px;\
+  text-transform: uppercase;\
+  cursor: pointer;\
+  transition: transform .15s, box-shadow .2s, background .2s;\
+  display: inline-flex;\
+  align-items: center;\
+  gap: 10px;\
+\}\
+.btn:hover \{ transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); \}\
+.btn:active \{ transform: translateY(0); \}\
+.btn.primary \{\
+  background: linear-gradient(180deg, #ffd700, #d4a000);\
+  color: #1a1a1a;\
+  border-color: #ffd700;\
+  font-weight: 700;\
+\}\
+.btn.primary:hover \{ box-shadow: 0 8px 28px rgba(255,204,0,0.4); \}\
+.btn.ghost \{\
+  background: transparent;\
+  border: 1px solid var(--border);\
+\}\
+.btn.danger \{\
+  background: linear-gradient(180deg, #d71920, #9b0e14);\
+  border-color: #d71920;\
+\}\
+.btn-row \{ display: flex; gap: 12px; flex-wrap: wrap; margin-top: 16px; \}\
+.btn.small \{ padding: 8px 14px; font-size: 12px; \}\
+\
+/* === EDITOR SCREEN === */\
+#editor-screen \{ padding: 20px; max-width: 1400px; margin: 0 auto; \}\
+\
+.editor-header \{\
+  display: flex;\
+  justify-content: space-between;\
+  align-items: center;\
+  flex-wrap: wrap;\
+  gap: 16px;\
+  padding: 20px 24px;\
+  background: linear-gradient(180deg, rgba(20, 48, 110, 0.7), rgba(13, 30, 84, 0.7));\
+  border: 1px solid var(--border);\
+  border-radius: 14px;\
+  margin-bottom: 20px;\
+\}\
+.editor-title \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: 32px;\
+  letter-spacing: 3px;\
+  color: var(--jep-gold);\
+\}\
+.editor-tabs \{\
+  display: flex;\
+  gap: 4px;\
+  background: rgba(5, 15, 48, 0.6);\
+  padding: 4px;\
+  border-radius: 10px;\
+  border: 1px solid var(--border);\
+\}\
+.editor-tab \{\
+  background: transparent;\
+  border: none;\
+  color: var(--text-dim);\
+  padding: 10px 18px;\
+  border-radius: 8px;\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 13px;\
+  letter-spacing: 1.5px;\
+  text-transform: uppercase;\
+  cursor: pointer;\
+  transition: all .2s;\
+\}\
+.editor-tab.active \{ background: var(--jep-blue-light); color: #fff; \}\
+.editor-tab:hover:not(.active) \{ color: #fff; \}\
+\
+.editor-board \{\
+  display: grid;\
+  grid-template-columns: 200px repeat(6, 1fr);\
+  gap: 6px;\
+  margin-bottom: 20px;\
+\}\
+@media (max-width: 1100px) \{\
+  .editor-board \{ grid-template-columns: 140px repeat(6, 1fr); font-size: 12px; \}\
+\}\
+.editor-cell \{\
+  background: linear-gradient(180deg, #1d3a8a, #142a6e);\
+  border: 1px solid #2a4a9e;\
+  border-radius: 6px;\
+  padding: 10px 8px;\
+  min-height: 70px;\
+  display: flex;\
+  flex-direction: column;\
+  justify-content: center;\
+  cursor: pointer;\
+  transition: all .2s;\
+  position: relative;\
+\}\
+.editor-cell:hover \{\
+  background: linear-gradient(180deg, #2849a8, #1d3a8a);\
+  border-color: var(--jep-gold);\
+  transform: scale(1.02);\
+\}\
+.editor-cell.header \{\
+  background: linear-gradient(180deg, #0d1e54, #050f30);\
+  text-align: center;\
+  font-family: 'Oswald', sans-serif;\
+  font-weight: 700;\
+  letter-spacing: 1px;\
+  text-transform: uppercase;\
+  font-size: 13px;\
+  color: var(--jep-gold);\
+\}\
+.editor-cell.row-label \{\
+  background: linear-gradient(180deg, #0d1e54, #050f30);\
+  font-family: 'Anton', sans-serif;\
+  font-size: 22px;\
+  color: var(--jep-gold);\
+  text-align: center;\
+  align-items: center;\
+\}\
+.editor-cell .cat-name \{ font-size: 12px; color: var(--text-dim); margin-top: 4px; text-transform: uppercase; letter-spacing: 0.5px; \}\
+.editor-cell .clue-preview \{ font-size: 11px; color: var(--text-dim); margin-top: 4px; line-height: 1.3; \}\
+.editor-cell .dd-badge \{\
+  position: absolute;\
+  top: 4px;\
+  right: 4px;\
+  background: var(--jep-gold);\
+  color: #1a1a1a;\
+  font-size: 9px;\
+  font-weight: 700;\
+  padding: 2px 5px;\
+  border-radius: 4px;\
+  font-family: 'Oswald', sans-serif;\
+  letter-spacing: 0.5px;\
+\}\
+\
+.final-editor \{ max-width: 700px; margin: 0 auto; \}\
+\
+/* === GAME SCREEN === */\
+#game-screen \{ padding: 16px; max-width: 1600px; margin: 0 auto; \}\
+\
+.game-header \{\
+  display: flex;\
+  justify-content: space-between;\
+  align-items: center;\
+  gap: 16px;\
+  padding: 14px 20px;\
+  background: linear-gradient(180deg, rgba(20, 48, 110, 0.7), rgba(13, 30, 84, 0.7));\
+  border: 1px solid var(--border);\
+  border-radius: 12px;\
+  margin-bottom: 16px;\
+  flex-wrap: wrap;\
+\}\
+.game-title-block \{ display: flex; align-items: center; gap: 16px; \}\
+.game-title \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: 28px;\
+  letter-spacing: 3px;\
+  color: var(--jep-gold);\
+  line-height: 1;\
+\}\
+.round-label \{\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 12px;\
+  letter-spacing: 3px;\
+  color: var(--text-dim);\
+  text-transform: uppercase;\
+\}\
+.header-controls \{ display: flex; gap: 8px; align-items: center; flex-wrap: wrap; \}\
+.icon-btn \{\
+  background: rgba(5, 15, 48, 0.7);\
+  border: 1px solid var(--border);\
+  color: var(--text);\
+  width: 42px;\
+  height: 42px;\
+  border-radius: 10px;\
+  cursor: pointer;\
+  font-size: 16px;\
+  display: inline-flex;\
+  align-items: center;\
+  justify-content: center;\
+  transition: all .2s;\
+\}\
+.icon-btn:hover \{ background: var(--jep-blue-light); border-color: var(--jep-gold); color: var(--jep-gold); \}\
+.icon-btn.active \{ background: var(--jep-gold); color: #1a1a1a; border-color: var(--jep-gold); \}\
+\
+.scoreboard \{\
+  display: grid;\
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));\
+  gap: 12px;\
+  margin-bottom: 16px;\
+\}\
+.player-card \{\
+  background: linear-gradient(180deg, var(--panel-light), var(--panel));\
+  border: 2px solid var(--border);\
+  border-radius: 12px;\
+  padding: 14px 16px;\
+  display: flex;\
+  align-items: center;\
+  gap: 12px;\
+  position: relative;\
+  transition: all .25s;\
+\}\
+.player-card.active \{\
+  border-color: var(--jep-gold);\
+  box-shadow: 0 0 0 4px rgba(255, 204, 0, 0.25), 0 8px 32px rgba(255,204,0,0.2);\
+  transform: translateY(-2px);\
+\}\
+.player-card .player-color \{\
+  width: 14px;\
+  height: 50px;\
+  border-radius: 4px;\
+  flex-shrink: 0;\
+\}\
+.player-card .player-info \{ flex: 1; min-width: 0; \}\
+.player-card .player-name \{\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 16px;\
+  font-weight: 600;\
+  letter-spacing: 1px;\
+  text-transform: uppercase;\
+  white-space: nowrap;\
+  overflow: hidden;\
+  text-overflow: ellipsis;\
+\}\
+.player-card .player-score \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: 28px;\
+  color: var(--jep-gold);\
+  line-height: 1;\
+  margin-top: 2px;\
+\}\
+.player-card .player-score.negative \{ color: #ff6b6b; \}\
+.player-card .score-controls \{\
+  display: flex;\
+  flex-direction: column;\
+  gap: 4px;\
+\}\
+.score-btn \{\
+  background: rgba(5, 15, 48, 0.6);\
+  border: 1px solid var(--border);\
+  color: var(--text);\
+  width: 32px;\
+  height: 22px;\
+  border-radius: 5px;\
+  cursor: pointer;\
+  font-size: 12px;\
+  font-weight: 700;\
+  font-family: 'Oswald', sans-serif;\
+  transition: all .15s;\
+  display: flex;\
+  align-items: center;\
+  justify-content: center;\
+\}\
+.score-btn:hover \{ background: var(--jep-blue-light); \}\
+.score-btn.plus:hover \{ background: var(--jep-green); border-color: var(--jep-green); \}\
+.score-btn.minus:hover \{ background: var(--jep-red); border-color: var(--jep-red); \}\
+\
+.board \{\
+  display: grid;\
+  grid-template-columns: repeat(6, 1fr);\
+  gap: 8px;\
+  margin-bottom: 16px;\
+\}\
+@media (max-width: 900px) \{ .board \{ gap: 4px; \} \}\
+\
+.board-cat \{\
+  background: linear-gradient(180deg, #0d1e54, #050f30);\
+  border: 1px solid #1f3a7a;\
+  border-radius: 6px;\
+  padding: 14px 8px;\
+  text-align: center;\
+  font-family: 'Oswald', sans-serif;\
+  font-weight: 700;\
+  font-size: clamp(11px, 1.1vw, 16px);\
+  letter-spacing: 1.5px;\
+  text-transform: uppercase;\
+  color: var(--jep-gold);\
+  display: flex;\
+  align-items: center;\
+  justify-content: center;\
+  min-height: 70px;\
+  line-height: 1.2;\
+\}\
+\
+.clue \{\
+  background: linear-gradient(180deg, var(--jep-blue-card), #142a6e);\
+  border: 1px solid #2a4a9e;\
+  border-radius: 6px;\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(24px, 4vw, 56px);\
+  color: var(--jep-gold);\
+  display: flex;\
+  align-items: center;\
+  justify-content: center;\
+  cursor: pointer;\
+  min-height: 80px;\
+  transition: all .25s;\
+  position: relative;\
+  user-select: none;\
+  letter-spacing: 1px;\
+\}\
+.clue:hover:not(.used) \{\
+  background: linear-gradient(180deg, var(--jep-blue-card-lit), var(--jep-blue-card));\
+  border-color: var(--jep-gold);\
+  transform: scale(1.03);\
+  box-shadow: 0 6px 20px rgba(255,204,0,0.25);\
+\}\
+.clue.used \{\
+  background: linear-gradient(180deg, #050f30, #020817);\
+  border-color: #1f3a7a;\
+  cursor: default;\
+  color: transparent;\
+\}\
+.clue.used::after \{\
+  content: '';\
+  position: absolute;\
+  inset: 8px;\
+  border: 1px dashed rgba(255,255,255,0.08);\
+  border-radius: 4px;\
+\}\
+\
+.round-control-bar \{\
+  display: flex;\
+  justify-content: space-between;\
+  align-items: center;\
+  gap: 12px;\
+  padding: 12px 16px;\
+  background: linear-gradient(180deg, rgba(20, 48, 110, 0.7), rgba(13, 30, 84, 0.7));\
+  border: 1px solid var(--border);\
+  border-radius: 10px;\
+  flex-wrap: wrap;\
+\}\
+.round-info \{\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 14px;\
+  letter-spacing: 2px;\
+  color: var(--text-dim);\
+  text-transform: uppercase;\
+\}\
+.round-info b \{ color: var(--jep-gold); \}\
+\
+/* === QUESTION MODAL === */\
+.modal \{\
+  position: fixed;\
+  inset: 0;\
+  background: rgba(2, 6, 23, 0.97);\
+  z-index: 100;\
+  display: none;\
+  flex-direction: column;\
+  padding: 24px;\
+\}\
+.modal.active \{ display: flex; animation: modalIn .4s ease; \}\
+@keyframes modalIn \{\
+  from \{ opacity: 0; \}\
+  to \{ opacity: 1; \}\
+\}\
+\
+.modal-top \{\
+  display: flex;\
+  justify-content: space-between;\
+  align-items: center;\
+  margin-bottom: 16px;\
+\}\
+.modal-cat \{\
+  font-family: 'Oswald', sans-serif;\
+  font-size: clamp(18px, 2.5vw, 28px);\
+  letter-spacing: 4px;\
+  text-transform: uppercase;\
+  color: var(--jep-gold);\
+\}\
+.modal-value \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(36px, 5vw, 64px);\
+  color: var(--jep-gold);\
+  line-height: 1;\
+\}\
+.modal-close \{\
+  background: rgba(215, 25, 32, 0.2);\
+  border: 1px solid rgba(215, 25, 32, 0.5);\
+  color: #ff6b6b;\
+  width: 50px;\
+  height: 50px;\
+  border-radius: 50%;\
+  cursor: pointer;\
+  font-size: 20px;\
+  transition: all .2s;\
+\}\
+.modal-close:hover \{ background: var(--jep-red); color: #fff; transform: rotate(90deg); \}\
+\
+.clue-text \{\
+  flex: 1;\
+  display: flex;\
+  align-items: center;\
+  justify-content: center;\
+  text-align: center;\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(28px, 5vw, 80px);\
+  letter-spacing: 1px;\
+  line-height: 1.1;\
+  padding: 20px;\
+  text-shadow: 0 4px 20px rgba(0,0,0,0.6);\
+  animation: clueIn .5s ease;\
+  cursor: pointer;\
+\}\
+@keyframes clueIn \{\
+  from \{ transform: scale(0.9); opacity: 0; \}\
+  to \{ transform: scale(1); opacity: 1; \}\
+\}\
+\
+.answer-banner \{\
+  background: linear-gradient(180deg, var(--jep-gold), #d4a000);\
+  color: #0a1d5c;\
+  padding: 16px 24px;\
+  border-radius: 10px;\
+  text-align: center;\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(24px, 3vw, 48px);\
+  letter-spacing: 2px;\
+  margin-bottom: 16px;\
+  display: none;\
+  animation: answerIn .4s ease;\
+\}\
+.answer-banner.show \{ display: block; \}\
+@keyframes answerIn \{\
+  from \{ transform: translateY(20px); opacity: 0; \}\
+  to \{ transform: translateY(0); opacity: 1; \}\
+\}\
+\
+.modal-bottom \{\
+  display: flex;\
+  flex-direction: column;\
+  gap: 12px;\
+\}\
+.modal-instruction \{\
+  text-align: center;\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 14px;\
+  letter-spacing: 2px;\
+  color: var(--text-dim);\
+  text-transform: uppercase;\
+\}\
+.scoring-row \{\
+  display: grid;\
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));\
+  gap: 10px;\
+\}\
+.score-card \{\
+  background: linear-gradient(180deg, var(--panel-light), var(--panel));\
+  border: 2px solid var(--border);\
+  border-radius: 10px;\
+  padding: 12px;\
+  display: flex;\
+  flex-direction: column;\
+  gap: 8px;\
+  transition: all .2s;\
+\}\
+.score-card.active \{ border-color: var(--jep-gold); box-shadow: 0 0 0 3px rgba(255,204,0,0.2); \}\
+.score-card .sc-name \{\
+  font-family: 'Oswald', sans-serif;\
+  font-weight: 600;\
+  text-transform: uppercase;\
+  letter-spacing: 1px;\
+  font-size: 13px;\
+  display: flex;\
+  align-items: center;\
+  gap: 8px;\
+\}\
+.score-card .sc-name .dot \{ width: 12px; height: 12px; border-radius: 3px; \}\
+.score-card .sc-actions \{ display: flex; gap: 6px; \}\
+.score-card .sc-btn \{\
+  flex: 1;\
+  padding: 10px;\
+  border-radius: 6px;\
+  border: 1px solid;\
+  cursor: pointer;\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 12px;\
+  letter-spacing: 1px;\
+  text-transform: uppercase;\
+  transition: all .15s;\
+\}\
+.score-card .sc-btn.correct \{\
+  background: rgba(46, 200, 102, 0.15);\
+  border-color: rgba(46, 200, 102, 0.4);\
+  color: var(--jep-green);\
+\}\
+.score-card .sc-btn.correct:hover \{ background: var(--jep-green); color: #fff; \}\
+.score-card .sc-btn.wrong \{\
+  background: rgba(215, 25, 32, 0.15);\
+  border-color: rgba(215, 25, 32, 0.4);\
+  color: #ff6b6b;\
+\}\
+.score-card .sc-btn.wrong:hover \{ background: var(--jep-red); color: #fff; \}\
+.score-card .sc-btn.pick \{\
+  background: rgba(255, 204, 0, 0.15);\
+  border-color: rgba(255, 204, 0, 0.4);\
+  color: var(--jep-gold);\
+\}\
+.score-card .sc-btn.pick:hover \{ background: var(--jep-gold); color: #1a1a1a; \}\
+\
+.modal-actions \{\
+  display: flex;\
+  gap: 10px;\
+  justify-content: center;\
+  margin-top: 8px;\
+\}\
+\
+/* Daily Double */\
+.dd-overlay \{\
+  position: fixed;\
+  inset: 0;\
+  background: radial-gradient(circle at center, #4a0e12, #1a0405);\
+  z-index: 110;\
+  display: none;\
+  align-items: center;\
+  justify-content: center;\
+  flex-direction: column;\
+  text-align: center;\
+  padding: 40px;\
+\}\
+.dd-overlay.active \{ display: flex; animation: ddIn .5s ease; \}\
+@keyframes ddIn \{\
+  from \{ opacity: 0; transform: scale(1.1); \}\
+  to \{ opacity: 1; transform: scale(1); \}\
+\}\
+.dd-title \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(48px, 10vw, 140px);\
+  letter-spacing: 6px;\
+  color: var(--jep-gold);\
+  text-shadow: 0 0 40px rgba(255, 204, 0, 0.6);\
+  animation: ddPulse 1.2s ease-in-out infinite alternate;\
+\}\
+@keyframes ddPulse \{\
+  from \{ transform: scale(1); \}\
+  to \{ transform: scale(1.06); \}\
+\}\
+.dd-sub \{\
+  font-family: 'Oswald', sans-serif;\
+  font-size: clamp(16px, 2vw, 24px);\
+  letter-spacing: 4px;\
+  text-transform: uppercase;\
+  color: #fff;\
+  margin-top: 8px;\
+\}\
+.dd-wager-panel \{\
+  margin-top: 30px;\
+  background: rgba(0,0,0,0.4);\
+  border: 1px solid rgba(255,204,0,0.3);\
+  border-radius: 14px;\
+  padding: 24px 32px;\
+  max-width: 500px;\
+  width: 100%;\
+\}\
+.dd-wager-panel label \{ font-family: 'Oswald', sans-serif; letter-spacing: 2px; text-transform: uppercase; color: var(--text-dim); font-size: 12px; \}\
+.dd-wager-panel select, .dd-wager-panel input \{\
+  width: 100%;\
+  background: rgba(5,15,48,0.8);\
+  border: 1px solid var(--border);\
+  border-radius: 8px;\
+  padding: 12px;\
+  color: #fff;\
+  font-family: 'Anton', sans-serif;\
+  font-size: 24px;\
+  margin: 8px 0 16px;\
+  text-align: center;\
+\}\
+.dd-wager-panel input \{ font-family: 'DM Sans'; font-size: 18px; \}\
+\
+/* Final Jeopardy */\
+.fj-screen \{\
+  position: fixed;\
+  inset: 0;\
+  background: linear-gradient(180deg, #050f30, #020817);\
+  z-index: 120;\
+  display: none;\
+  flex-direction: column;\
+  padding: 30px;\
+  overflow-y: auto;\
+\}\
+.fj-screen.active \{ display: flex; \}\
+.fj-header \{ text-align: center; margin-bottom: 24px; \}\
+.fj-title \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(40px, 7vw, 96px);\
+  letter-spacing: 6px;\
+  color: var(--jep-gold);\
+  text-shadow: 0 0 40px rgba(255,204,0,0.4);\
+\}\
+.fj-cat \{\
+  font-family: 'Oswald', sans-serif;\
+  font-size: clamp(16px, 2.2vw, 28px);\
+  letter-spacing: 6px;\
+  text-transform: uppercase;\
+  color: #fff;\
+  margin-top: 8px;\
+\}\
+.fj-body \{ flex: 1; display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 24px; max-width: 1100px; margin: 0 auto; width: 100%; \}\
+.fj-question \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(22px, 3.5vw, 52px);\
+  text-align: center;\
+  line-height: 1.2;\
+  padding: 20px;\
+\}\
+.fj-answer \{\
+  background: linear-gradient(180deg, var(--jep-gold), #d4a000);\
+  color: #0a1d5c;\
+  padding: 16px 32px;\
+  border-radius: 12px;\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(20px, 2.8vw, 40px);\
+  letter-spacing: 2px;\
+  display: none;\
+\}\
+.fj-answer.show \{ display: block; animation: answerIn .4s ease; \}\
+\
+.fj-wagers \{\
+  display: grid;\
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));\
+  gap: 14px;\
+  width: 100%;\
+  margin-top: 20px;\
+\}\
+.fj-wager-card \{\
+  background: linear-gradient(180deg, var(--panel-light), var(--panel));\
+  border: 2px solid var(--border);\
+  border-radius: 12px;\
+  padding: 16px;\
+\}\
+.fj-wager-card .fwc-name \{ font-family: 'Oswald', sans-serif; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; \}\
+.fj-wager-card .fwc-score \{ font-family: 'Anton', sans-serif; font-size: 28px; color: var(--jep-gold); \}\
+.fj-wager-card .fwc-input \{ width: 100%; background: rgba(5,15,48,0.7); border: 1px solid var(--border); border-radius: 6px; padding: 10px; color: #fff; font-family: 'DM Sans'; font-size: 18px; margin: 10px 0; \}\
+.fj-wager-card .fwc-actions \{ display: flex; gap: 6px; \}\
+.fj-wager-card .fwc-btn \{ flex: 1; padding: 10px; border-radius: 6px; border: 1px solid; cursor: pointer; font-family: 'Oswald', sans-serif; letter-spacing: 1px; text-transform: uppercase; font-size: 11px; transition: all .15s; \}\
+.fj-wager-card .fwc-btn.correct \{ background: rgba(46, 200, 102, 0.15); border-color: rgba(46, 200, 102, 0.4); color: var(--jep-green); \}\
+.fj-wager-card .fwc-btn.correct:hover \{ background: var(--jep-green); color: #fff; \}\
+.fj-wager-card .fwc-btn.wrong \{ background: rgba(215, 25, 32, 0.15); border-color: rgba(215, 25, 32, 0.4); color: #ff6b6b; \}\
+.fj-wager-card .fwc-btn.wrong:hover \{ background: var(--jep-red); color: #fff; \}\
+\
+/* Editor modal */\
+.edit-modal \{\
+  position: fixed;\
+  inset: 0;\
+  background: rgba(2, 6, 23, 0.85);\
+  z-index: 200;\
+  display: none;\
+  align-items: center;\
+  justify-content: center;\
+  padding: 20px;\
+  backdrop-filter: blur(6px);\
+\}\
+.edit-modal.active \{ display: flex; \}\
+.edit-modal-content \{\
+  background: linear-gradient(180deg, var(--panel-light), var(--panel));\
+  border: 1px solid var(--border);\
+  border-radius: 14px;\
+  padding: 28px;\
+  max-width: 560px;\
+  width: 100%;\
+  max-height: 90vh;\
+  overflow-y: auto;\
+  box-shadow: var(--shadow);\
+\}\
+.edit-modal-content h3 \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: 24px;\
+  letter-spacing: 2px;\
+  color: var(--jep-gold);\
+  margin-bottom: 20px;\
+\}\
+\
+/* Toast */\
+.toast \{\
+  position: fixed;\
+  bottom: 24px;\
+  left: 50%;\
+  transform: translateX(-50%) translateY(20px);\
+  background: rgba(5, 15, 48, 0.95);\
+  border: 1px solid var(--jep-gold);\
+  color: var(--jep-gold);\
+  padding: 14px 24px;\
+  border-radius: 10px;\
+  font-family: 'Oswald', sans-serif;\
+  letter-spacing: 1.5px;\
+  text-transform: uppercase;\
+  font-size: 13px;\
+  z-index: 999;\
+  opacity: 0;\
+  pointer-events: none;\
+  transition: all .3s;\
+\}\
+.toast.show \{ opacity: 1; transform: translateX(-50%) translateY(0); \}\
+\
+/* Round transition */\
+.round-transition \{\
+  position: fixed;\
+  inset: 0;\
+  background: linear-gradient(180deg, #050f30, #020817);\
+  z-index: 130;\
+  display: none;\
+  align-items: center;\
+  justify-content: center;\
+  flex-direction: column;\
+  text-align: center;\
+\}\
+.round-transition.active \{ display: flex; animation: modalIn .4s ease; \}\
+.rt-title \{\
+  font-family: 'Anton', sans-serif;\
+  font-size: clamp(48px, 10vw, 140px);\
+  letter-spacing: 6px;\
+  background: linear-gradient(180deg, #fff, var(--jep-gold));\
+  -webkit-background-clip: text;\
+  background-clip: text;\
+  color: transparent;\
+  text-shadow: 0 0 60px rgba(255,204,0,0.3);\
+  animation: ddPulse 1.5s ease-in-out infinite alternate;\
+\}\
+\
+/* Projector fullscreen adjustments */\
+:fullscreen .board \{ gap: 12px; \}\
+:fullscreen #game-screen \{ max-width: 100%; padding: 24px; \}\
+:fullscreen .clue \{ font-size: clamp(40px, 6vw, 96px); min-height: 120px; \}\
+:fullscreen .board-cat \{ font-size: clamp(14px, 1.4vw, 22px); min-height: 100px; \}\
+:fullscreen .modal \{ padding: 40px; \}\
+:fullscreen .clue-text \{ font-size: clamp(40px, 7vw, 120px); \}\
+\
+/* Add player button */\
+.add-player-btn \{\
+  background: rgba(255, 204, 0, 0.1);\
+  border: 1px dashed rgba(255, 204, 0, 0.5);\
+  color: var(--jep-gold);\
+  padding: 10px;\
+  border-radius: 8px;\
+  cursor: pointer;\
+  font-family: 'Oswald', sans-serif;\
+  font-size: 13px;\
+  letter-spacing: 1.5px;\
+  text-transform: uppercase;\
+  margin-top: 8px;\
+  width: 100%;\
+  transition: all .2s;\
+\}\
+.add-player-btn:hover \{ background: rgba(255, 204, 0, 0.2); \}\
+\
+/* Import/export */\
+.file-input \{ display: none; \}\
+\
+.empty-state \{\
+  text-align: center;\
+  padding: 40px 20px;\
+  color: var(--text-dim);\
+\}\
+.empty-state i \{ font-size: 40px; margin-bottom: 12px; color: var(--jep-gold); opacity: 0.5; \}\
+.empty-state h3 \{ font-family: 'Oswald', sans-serif; font-size: 18px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; color: var(--text); \}\
+\
+.help-text \{ font-size: 12px; color: var(--text-dim); margin-top: 8px; line-height: 1.5; \}\
+.help-text kbd \{\
+  background: rgba(5,15,48,0.8);\
+  border: 1px solid var(--border);\
+  border-radius: 4px;\
+  padding: 2px 6px;\
+  font-family: monospace;\
+  font-size: 11px;\
+  color: var(--jep-gold);\
+\}\
+\
+.settings-row \{ display: grid; grid-template-columns: 1fr 1fr; gap: 10px; \}\
+.checkbox-field \{ display: flex; align-items: center; gap: 10px; padding: 10px; background: rgba(5,15,48,0.5); border: 1px solid var(--border); border-radius: 8px; cursor: pointer; \}\
+.checkbox-field input \{ width: 18px; height: 18px; accent-color: var(--jep-gold); cursor: pointer; \}\
+.checkbox-field span \{ font-family: 'Oswald', sans-serif; font-size: 13px; letter-spacing: 1px; text-transform: uppercase; \}\
+\
+</style>\
+</head>\
+<body>\
+<div id="app">\
+\
+  <!-- ============= SETUP SCREEN ============= -->\
+  <section id="setup-screen" class="screen active">\
+    <div class="brand">\
+      <div class="logo">JEOPARDY</div>\
+      <div class="tagline">Pharmacology Edition &middot; Projector Ready</div>\
+      <div class="bar"></div>\
+    </div>\
+\
+    <div class="setup-grid">\
+      <div class="panel">\
+        <h2><i class="fa-solid fa-users"></i> Players</h2>\
+        <div id="setup-players" class="players-list"></div>\
+        <button class="add-player-btn" id="add-player-btn"><i class="fa-solid fa-plus"></i> Add Player</button>\
+        <div class="help-text" style="margin-top:16px;">\
+          Tip: Up to 6 players. Each gets a color for the scoreboard. You can rename them anything you like.\
+        </div>\
+      </div>\
+\
+      <div class="panel">\
+        <h2><i class="fa-solid fa-cog"></i> Game Setup</h2>\
+        <div class="field">\
+          <label>Game Title</label>\
+          <input type="text" id="game-title-input" value="Pharmacology Jeopardy">\
+        </div>\
+        <div class="field">\
+          <label>Load Saved Game</label>\
+          <select id="saved-games-select">\
+            <option value="">\'97 Create new \'97</option>\
+          </select>\
+        </div>\
+\
+        <div class="btn-row">\
+          <button class="btn primary" id="start-game-btn"><i class="fa-solid fa-play"></i> Start Game</button>\
+          <button class="btn" id="open-editor-btn"><i class="fa-solid fa-pen"></i> Edit Questions</button>\
+        </div>\
+        <div class="btn-row">\
+          <button class="btn ghost small" id="export-btn"><i class="fa-solid fa-download"></i> Export JSON</button>\
+          <button class="btn ghost small" id="import-btn"><i class="fa-solid fa-upload"></i> Import JSON</button>\
+          <button class="btn ghost small" id="load-sample-btn"><i class="fa-solid fa-magic-wand-sparkles"></i> Load Sample</button>\
+          <input type="file" id="import-file" class="file-input" accept="application/json">\
+        </div>\
+\
+        <div class="field" style="margin-top: 20px;">\
+          <label>Audio Settings</label>\
+          <div class="settings-row">\
+            <label class="checkbox-field">\
+              <input type="checkbox" id="sound-effects-check" checked>\
+              <span>Sound FX</span>\
+            </label>\
+            <label class="checkbox-field">\
+              <input type="checkbox" id="bg-music-check">\
+              <span>Background Music</span>\
+            </label>\
+          </div>\
+        </div>\
+      </div>\
+    </div>\
+  </section>\
+\
+  <!-- ============= EDITOR SCREEN ============= -->\
+  <section id="editor-screen" class="screen">\
+    <div class="editor-header">\
+      <div>\
+        <div class="editor-title" id="editor-game-title">Edit Game</div>\
+        <div style="font-family:'Oswald'; letter-spacing:2px; color: var(--text-dim); font-size: 13px; text-transform:uppercase; margin-top:4px;">Click any cell to edit &middot; changes auto-save</div>\
+      </div>\
+      <div class="editor-tabs">\
+        <button class="editor-tab active" data-round="jeopardy">Jeopardy</button>\
+        <button class="editor-tab" data-round="doubleJeopardy">Double Jeopardy</button>\
+        <button class="editor-tab" data-round="finalJeopardy">Final Jeopardy</button>\
+      </div>\
+      <div class="btn-row" style="margin:0;">\
+        <button class="btn primary" id="editor-play-btn"><i class="fa-solid fa-play"></i> Play</button>\
+        <button class="btn ghost" id="editor-back-btn"><i class="fa-solid fa-arrow-left"></i> Back</button>\
+      </div>\
+    </div>\
+\
+    <div id="editor-board-container"></div>\
+\
+    <div id="final-editor-container" style="display:none;">\
+      <div class="panel final-editor">\
+        <h2><i class="fa-solid fa-trophy"></i> Final Jeopardy</h2>\
+        <div class="field">\
+          <label>Category</label>\
+          <input type="text" id="fj-category-input" placeholder="FINAL JEOPARDY CATEGORY">\
+        </div>\
+        <div class="field">\
+          <label>Clue / Question</label>\
+          <textarea id="fj-clue-input" placeholder="The clue that appears on screen..."></textarea>\
+        </div>\
+        <div class="field">\
+          <label>Answer</label>\
+          <input type="text" id="fj-answer-input" placeholder="What is...">\
+        </div>\
+      </div>\
+    </div>\
+\
+    <div class="panel" style="margin-top:20px;">\
+      <h2><i class="fa-solid fa-circle-info"></i> How To Edit</h2>\
+      <div class="help-text" style="font-size:13px;">\
+        <p>\'95 Click any <b style="color:var(--jep-gold)">category header</b> to rename the category.</p>\
+        <p>\'95 Click any <b style="color:var(--jep-gold)">clue cell</b> to edit the question, answer, and mark it as a Daily Double.</p>\
+        <p>\'95 Use the tabs at the top to switch between <b style="color:var(--jep-gold)">Jeopardy</b> ($200\'96$1000), <b style="color:var(--jep-gold)">Double Jeopardy</b> ($400\'96$2000), and <b style="color:var(--jep-gold)">Final Jeopardy</b>.</p>\
+        <p>\'95 All changes auto-save to your browser. Use <b style="color:var(--jep-gold)">Export JSON</b> to share the game with others or save a backup.</p>\
+      </div>\
+    </div>\
+  </section>\
+\
+  <!-- ============= GAME SCREEN ============= -->\
+  <section id="game-screen" class="screen">\
+    <div class="game-header">\
+      <div class="game-title-block">\
+        <div>\
+          <div class="round-label" id="game-round-label">Jeopardy Round</div>\
+          <div class="game-title" id="game-title-display">Pharmacology Jeopardy</div>\
+        </div>\
+      </div>\
+      <div class="header-controls">\
+        <button class="icon-btn" id="fullscreen-btn" title="Fullscreen / Projector mode"><i class="fa-solid fa-expand"></i></button>\
+        <button class="icon-btn" id="sound-toggle-btn" title="Toggle sound effects"><i class="fa-solid fa-volume-high"></i></button>\
+        <button class="icon-btn" id="music-toggle-btn" title="Toggle background music"><i class="fa-solid fa-music"></i></button>\
+        <button class="icon-btn" id="game-home-btn" title="Back to setup"><i class="fa-solid fa-house"></i></button>\
+      </div>\
+    </div>\
+\
+    <div class="scoreboard" id="scoreboard"></div>\
+\
+    <div class="board" id="board"></div>\
+\
+    <div class="round-control-bar">\
+      <div class="round-info">\
+        Clues remaining: <b id="clues-remaining">30</b> &nbsp;|&nbsp;\
+        Round: <b id="current-round-name">Jeopardy</b>\
+      </div>\
+      <div class="btn-row" style="margin:0;">\
+        <button class="btn small" id="prev-round-btn"><i class="fa-solid fa-chevron-left"></i> Prev</button>\
+        <button class="btn small" id="next-round-btn">Next <i class="fa-solid fa-chevron-right"></i></button>\
+        <button class="btn primary small" id="reset-scores-btn"><i class="fa-solid fa-rotate-left"></i> Reset Scores</button>\
+      </div>\
+    </div>\
+  </section>\
+\
+  <!-- ============= QUESTION MODAL ============= -->\
+  <div class="modal" id="question-modal">\
+    <div class="modal-top">\
+      <div>\
+        <div class="modal-cat" id="qmodal-cat">CATEGORY</div>\
+        <div class="modal-value" id="qmodal-value">$200</div>\
+      </div>\
+      <button class="modal-close" id="qmodal-close"><i class="fa-solid fa-xmark"></i></button>\
+    </div>\
+    <div class="clue-text" id="qmodal-text">Question text goes here</div>\
+    <div class="answer-banner" id="qmodal-answer">ANSWER</div>\
+    <div class="modal-bottom">\
+      <div class="modal-instruction" id="qmodal-instruction">Click anywhere to reveal answer</div>\
+      <div class="scoring-row" id="qmodal-scoring"></div>\
+      <div class="modal-actions">\
+        <button class="btn ghost small" id="qmodal-reveal"><i class="fa-solid fa-eye"></i> Reveal Answer</button>\
+        <button class="btn small" id="qmodal-back"><i class="fa-solid fa-arrow-left"></i> Back to Board</button>\
+      </div>\
+    </div>\
+  </div>\
+\
+  <!-- ============= DAILY DOUBLE ============= -->\
+  <div class="dd-overlay" id="dd-overlay">\
+    <div class="dd-title">DAILY DOUBLE</div>\
+    <div class="dd-sub" id="dd-player-name">Player Name</div>\
+    <div class="dd-wager-panel">\
+      <label>Select Player & Enter Wager</label>\
+      <select id="dd-player-select"></select>\
+      <input type="number" id="dd-wager-input" min="5" value="500" placeholder="Wager amount">\
+      <button class="btn primary" id="dd-confirm" style="width:100%;"><i class="fa-solid fa-check"></i> Reveal Clue</button>\
+    </div>\
+  </div>\
+\
+  <!-- ============= FINAL JEOPARDY ============= -->\
+  <div class="fj-screen" id="fj-screen">\
+    <div class="fj-header">\
+      <div class="fj-title">FINAL JEOPARDY</div>\
+      <div class="fj-cat" id="fj-cat">CATEGORY</div>\
+    </div>\
+    <div class="fj-body">\
+      <div class="fj-question" id="fj-question">Question appears here...</div>\
+      <div class="fj-answer" id="fj-answer">ANSWER</div>\
+      <div class="fj-wagers" id="fj-wagers"></div>\
+      <div class="btn-row" style="justify-content:center;">\
+        <button class="btn ghost" id="fj-reveal-btn"><i class="fa-solid fa-eye"></i> Reveal Answer</button>\
+        <button class="btn primary" id="fj-finalize-btn"><i class="fa-solid fa-flag-checkered"></i> Show Final Scores</button>\
+        <button class="btn" id="fj-back-btn"><i class="fa-solid fa-arrow-left"></i> Back</button>\
+      </div>\
+    </div>\
+  </div>\
+\
+  <!-- ============= ROUND TRANSITION ============= -->\
+  <div class="round-transition" id="round-transition">\
+    <div class="rt-title" id="rt-title">DOUBLE JEOPARDY</div>\
+  </div>\
+\
+  <!-- ============= EDIT MODAL ============= -->\
+  <div class="edit-modal" id="edit-modal">\
+    <div class="edit-modal-content">\
+      <h3 id="edit-modal-title">Edit Clue</h3>\
+      <div id="edit-modal-body"></div>\
+      <div class="btn-row" style="margin-top:20px; justify-content:space-between;">\
+        <button class="btn danger small" id="edit-clear-btn"><i class="fa-solid fa-eraser"></i> Clear</button>\
+        <div style="display:flex; gap:10px;">\
+          <button class="btn ghost small" id="edit-cancel-btn">Cancel</button>\
+          <button class="btn primary small" id="edit-save-btn"><i class="fa-solid fa-check"></i> Save</button>\
+        </div>\
+      </div>\
+    </div>\
+  </div>\
+\
+  <!-- ============= TOAST ============= -->\
+  <div class="toast" id="toast"></div>\
+\
+</div>\
+\
+<script>\
+// =============================================================\
+//  JEOPARDY PRO \'97 Single-file custom Jeopardy game builder\
+// =============================================================\
+\
+// ---------- AUDIO ENGINE (Web Audio API generated) ----------\
+const AudioEngine = (() => \{\
+  let ctx = null;\
+  let masterGain = null;\
+  let musicGain = null;\
+  let sfxGain = null;\
+  let musicTimer = null;\
+  let musicPlaying = false;\
+  let musicEnabled = false;\
+  let sfxEnabled = true;\
+\
+  function ensureCtx() \{\
+    if (!ctx) \{\
+      ctx = new (window.AudioContext || window.webkitAudioContext)();\
+      masterGain = ctx.createGain();\
+      masterGain.gain.value = 0.7;\
+      masterGain.connect(ctx.destination);\
+      musicGain = ctx.createGain();\
+      musicGain.gain.value = 0.12;\
+      musicGain.connect(masterGain);\
+      sfxGain = ctx.createGain();\
+      sfxGain.gain.value = 0.4;\
+      sfxGain.connect(masterGain);\
+    \}\
+    if (ctx.state === 'suspended') ctx.resume();\
+  \}\
+\
+  function playTone(freq, dur, type='sine', vol=0.3, dest=null) \{\
+    if (!sfxEnabled) return;\
+    ensureCtx();\
+    const osc = ctx.createOscillator();\
+    const gain = ctx.createGain();\
+    osc.type = type;\
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);\
+    gain.gain.setValueAtTime(0, ctx.currentTime);\
+    gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + 0.01);\
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);\
+    osc.connect(gain).connect(dest || sfxGain);\
+    osc.start();\
+    osc.stop(ctx.currentTime + dur + 0.05);\
+  \}\
+\
+  function playClick() \{\
+    playTone(800, 0.05, 'square', 0.15);\
+  \}\
+\
+  function playReveal() \{\
+    if (!sfxEnabled) return;\
+    ensureCtx();\
+    // Sweep up\
+    const osc = ctx.createOscillator();\
+    const gain = ctx.createGain();\
+    osc.type = 'sine';\
+    osc.frequency.setValueAtTime(220, ctx.currentTime);\
+    osc.frequency.exponentialRampToValueAtTime(660, ctx.currentTime + 0.3);\
+    gain.gain.setValueAtTime(0, ctx.currentTime);\
+    gain.gain.linearRampToValueAtTime(0.25, ctx.currentTime + 0.05);\
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);\
+    osc.connect(gain).connect(sfxGain);\
+    osc.start();\
+    osc.stop(ctx.currentTime + 0.45);\
+  \}\
+\
+  function playCorrect() \{\
+    if (!sfxEnabled) return;\
+    // Happy ascending arpeggio\
+    [523.25, 659.25, 783.99, 1046.50].forEach((f, i) => \{\
+      setTimeout(() => playTone(f, 0.25, 'triangle', 0.3), i * 90);\
+    \});\
+  \}\
+\
+  function playWrong() \{\
+    if (!sfxEnabled) return;\
+    // Descending buzz\
+    playTone(196, 0.18, 'sawtooth', 0.25);\
+    setTimeout(() => playTone(146.83, 0.35, 'sawtooth', 0.25), 180);\
+  \}\
+\
+  function playDailyDouble() \{\
+    if (!sfxEnabled) return;\
+    ensureCtx();\
+    // Fanfare\
+    const notes = [\
+      [392.00, 0.12], [523.25, 0.12], [659.25, 0.12],\
+      [783.99, 0.4], [1046.50, 0.6]\
+    ];\
+    let t = 0;\
+    notes.forEach(([f, d]) => \{\
+      setTimeout(() => playTone(f, d, 'square', 0.22), t * 1000);\
+      t += d;\
+    \});\
+  \}\
+\
+  function playTheme() \{\
+    if (!sfxEnabled) return;\
+    ensureCtx();\
+    // Short Jeopardy-like theme sting\
+    const melody = [\
+      [523.25, 0.18], [659.25, 0.18], [783.99, 0.18],\
+      [1046.50, 0.36], [783.99, 0.18], [1046.50, 0.54]\
+    ];\
+    let t = 0;\
+    melody.forEach(([f, d]) => \{\
+      setTimeout(() => playTone(f, d, 'triangle', 0.28), t * 1000);\
+      t += d;\
+    \});\
+  \}\
+\
+  function playFinalJeopardyThink() \{\
+    if (!sfxEnabled) return;\
+    ensureCtx();\
+    // Slow contemplative melody\
+    const melody = [\
+      [440, 0.5], [523.25, 0.5], [659.25, 0.5],\
+      [587.33, 0.5], [523.25, 0.5], [440, 0.75],\
+      [392, 0.5], [440, 0.5], [523.25, 1.0]\
+    ];\
+    let t = 0;\
+    melody.forEach(([f, d]) => \{\
+      setTimeout(() => playTone(f, d, 'sine', 0.25), t * 1000);\
+      t += d;\
+    \});\
+  \}\
+\
+  // Background music \'97 simple looping game-show style groove\
+  const bgMelody = [\
+    // bar 1\
+    [261.63, 0.25], [329.63, 0.25], [392.00, 0.25], [523.25, 0.25],\
+    [392.00, 0.25], [523.25, 0.5], [0, 0.25],\
+    // bar 2\
+    [293.66, 0.25], [349.23, 0.25], [440.00, 0.25], [587.33, 0.25],\
+    [440.00, 0.25], [587.33, 0.5], [0, 0.25],\
+    // bar 3\
+    [329.63, 0.25], [392.00, 0.25], [493.88, 0.25], [659.25, 0.25],\
+    [493.88, 0.25], [659.25, 0.5], [0, 0.25],\
+    // bar 4\
+    [349.23, 0.25], [440.00, 0.25], [523.25, 0.25], [659.25, 0.25],\
+    [523.25, 0.25], [783.99, 0.75]\
+  ];\
+\
+  const bgBass = [\
+    [130.81, 0.5], [0, 0.5], [130.81, 0.5], [0, 0.5],\
+    [146.83, 0.5], [0, 0.5], [146.83, 0.5], [0, 0.5],\
+    [164.81, 0.5], [0, 0.5], [164.81, 0.5], [0, 0.5],\
+    [174.61, 0.5], [0, 0.5], [174.61, 0.5], [0, 0.5]\
+  ];\
+\
+  function playMusicNote(freq, dur, vol=0.12, type='triangle') \{\
+    if (freq === 0) return;\
+    const osc = ctx.createOscillator();\
+    const gain = ctx.createGain();\
+    osc.type = type;\
+    osc.frequency.setValueAtTime(freq, ctx.currentTime);\
+    gain.gain.setValueAtTime(0, ctx.currentTime);\
+    gain.gain.linearRampToValueAtTime(vol, ctx.currentTime + 0.02);\
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);\
+    osc.connect(gain).connect(musicGain);\
+    osc.start();\
+    osc.stop(ctx.currentTime + dur + 0.05);\
+  \}\
+\
+  function startBgMusic() \{\
+    if (musicPlaying || !musicEnabled) return;\
+    ensureCtx();\
+    musicPlaying = true;\
+    let nextTime = ctx.currentTime + 0.1;\
+    const loopDur = 8; // seconds\
+\
+    function scheduleLoop() \{\
+      if (!musicPlaying) return;\
+      let t = 0;\
+      bgMelody.forEach(([f, d]) => \{\
+        const when = nextTime + t;\
+        if (f > 0) \{\
+          const osc = ctx.createOscillator();\
+          const gain = ctx.createGain();\
+          osc.type = 'triangle';\
+          osc.frequency.setValueAtTime(f, when);\
+          gain.gain.setValueAtTime(0, when);\
+          gain.gain.linearRampToValueAtTime(0.10, when + 0.02);\
+          gain.gain.exponentialRampToValueAtTime(0.001, when + d);\
+          osc.connect(gain).connect(musicGain);\
+          osc.start(when);\
+          osc.stop(when + d + 0.05);\
+        \}\
+        t += d;\
+      \});\
+      // Bass\
+      let bt = 0;\
+      bgBass.forEach(([f, d]) => \{\
+        const when = nextTime + bt;\
+        if (f > 0) \{\
+          const osc = ctx.createOscillator();\
+          const gain = ctx.createGain();\
+          osc.type = 'sine';\
+          osc.frequency.setValueAtTime(f, when);\
+          gain.gain.setValueAtTime(0, when);\
+          gain.gain.linearRampToValueAtTime(0.18, when + 0.02);\
+          gain.gain.exponentialRampToValueAtTime(0.001, when + d);\
+          osc.connect(gain).connect(musicGain);\
+          osc.start(when);\
+          osc.stop(when + d + 0.05);\
+        \}\
+        bt += d;\
+      \});\
+      nextTime += loopDur;\
+      musicTimer = setTimeout(scheduleLoop, (loopDur - 0.3) * 1000);\
+    \}\
+    scheduleLoop();\
+  \}\
+\
+  function stopBgMusic() \{\
+    musicPlaying = false;\
+    if (musicTimer) \{ clearTimeout(musicTimer); musicTimer = null; \}\
+  \}\
+\
+  function setMusicEnabled(on) \{\
+    musicEnabled = on;\
+    if (on) startBgMusic(); else stopBgMusic();\
+  \}\
+  function setSfxEnabled(on) \{ sfxEnabled = on; \}\
+  function isMusicPlaying() \{ return musicPlaying; \}\
+  function isMusicEnabled() \{ return musicEnabled; \}\
+  function isSfxEnabled() \{ return sfxEnabled; \}\
+\
+  return \{\
+    ensureCtx, playClick, playReveal, playCorrect, playWrong,\
+    playDailyDouble, playTheme, playFinalJeopardyThink,\
+    startBgMusic, stopBgMusic, setMusicEnabled, setSfxEnabled,\
+    isMusicPlaying, isMusicEnabled, isSfxEnabled\
+  \};\
+\})();\
+\
+// ---------- DATA / STATE ----------\
+const STORAGE_KEY = 'jeopardyPro_v1';\
+const PLAYER_COLORS = ['#ffcc00', '#2ec866', '#d71920', '#3aa6ff', '#c264ff', '#ff8a3a'];\
+\
+function defaultGame() \{\
+  return \{\
+    title: 'Pharmacology Jeopardy',\
+    rounds: \{\
+      jeopardy: \{\
+        name: 'Jeopardy',\
+        values: [200, 400, 600, 800, 1000],\
+        categories: Array.from(\{length: 6\}, (_, i) => (\{\
+          name: `CATEGORY $\{i+1\}`,\
+          clues: Array.from(\{length: 5\}, (_, j) => (\{\
+            value: [200,400,600,800,1000][j],\
+            question: '',\
+            answer: '',\
+            isDailyDouble: false\
+          \}))\
+        \}))\
+      \},\
+      doubleJeopardy: \{\
+        name: 'Double Jeopardy',\
+        values: [400, 800, 1200, 1600, 2000],\
+        categories: Array.from(\{length: 6\}, (_, i) => (\{\
+          name: `CATEGORY $\{i+1\}`,\
+          clues: Array.from(\{length: 5\}, (_, j) => (\{\
+            value: [400,800,1200,1600,2000][j],\
+            question: '',\
+            answer: '',\
+            isDailyDouble: false\
+          \}))\
+        \}))\
+      \},\
+      finalJeopardy: \{\
+        category: 'FINAL CATEGORY',\
+        question: 'Type your Final Jeopardy clue here.',\
+        answer: 'What is the answer?'\
+      \}\
+    \}\
+  \};\
+\}\
+\
+function sampleGame() \{\
+  const g = defaultGame();\
+  g.title = 'Pharmacology Edition';\
+  const cats1 = ['BASIC PHARMACOLOGY','DRUG CLASSES','ANS DRUGS','PHARMACOKINETICS','ADVERSE EFFECTS','ANTIBIOTICS'];\
+  const clues1 = [\
+    [['The study of drugs and their interactions with living systems','Pharmacology'], ['The study of what the body does to the drug','Pharmacokinetics'], ['The study of what the drug does to the body','Pharmacodynamics'], ['The maximum effect a drug can produce','Efficacy'], ['The dose required to produce a specific effect in 50% of population','ED50']],\
+    [['A class of drugs used to treat pain','Analgesics'], ['Drugs that lower blood pressure','Antihypertensives'], ['Drugs used to treat arrhythmias','Antiarrhythmics'], ['Drugs used to treat anxiety','Anxiolytics'], ['Drugs used to treat fungal infections','Antifungals']],\
+    [['Neurotransmitter of the parasympathetic nervous system','Acetylcholine'], ['Receptors responsible for the fight-or-flight response','Adrenergic'], ['Drug class that blocks beta receptors','Beta-blockers'], ['This anticholinergic drug is used for asthma','Ipratropium'], ['Receptor activated by epinephrine','Adrenoceptor']],\
+    [['The process by which a drug is absorbed into the bloodstream','Absorption'], ['The process by which a drug is distributed throughout the body','Distribution'], ['The metabolic breakdown of a drug, often in the liver','Metabolism'], ['The removal of a drug from the body, usually via kidneys','Excretion'], ['The time it takes for the plasma concentration of a drug to reduce by 50%','Half-life']],\
+    [['A severe allergic reaction to a drug','Anaphylaxis'], ['A side effect common to antihistamines','Drowsiness'], ['Gastrointestinal distress is a common side effect of this class of drugs','NSAIDs'], ['Liver damage caused by an overdose of this common analgesic','Acetaminophen'], ['Dry mouth and blurred vision are hallmark side effects of these drugs','Anticholinergics']],\
+    [['This class of antibiotics inhibits cell wall synthesis','Penicillins'], ['This antibiotic class binds to the 30S ribosomal subunit','Tetracyclines'], ['A broad-spectrum antibiotic that can cause tendon rupture','Fluoroquinolones'], ['Antibiotic class that acts on the 50S subunit and treats MRSA','Macrolides'], ['Drug of choice for treating MRSA infections','Vancomycin']]\
+  ];\
+  for (let c = 0; c < 6; c++) \{\
+    g.rounds.jeopardy.categories[c].name = cats1[c];\
+    for (let r = 0; r < 5; r++) \{\
+      g.rounds.jeopardy.categories[c].clues[r].question = clues1[c][r][0];\
+      g.rounds.jeopardy.categories[c].clues[r].answer = clues1[c][r][1];\
+    \}\
+  \}\
+  // Mark one daily double\
+  g.rounds.jeopardy.categories[2].clues[3].isDailyDouble = true;\
+\
+  const cats2 = ['CARDIOVASCULAR','CNS DRUGS','ENDOCRINE','CHEMOTHERAPY','DRUG INTERACTIONS','TOXICOLOGY'];\
+  const clues2 = [\
+    [['This drug class inhibits the ACE enzyme to lower blood pressure','ACE inhibitors'], ['A diuretic that prevents the reabsorption of sodium in the loop of Henle','Loop diuretics'], ['Drug used to treat heart failure by increasing contractility','Digoxin'], ['This antiplatelet drug prevents blood clots by inhibiting COX-1','Aspirin'], ['A statin drug is primarily used to lower this lipid in the blood','Cholesterol']],\
+    [['First-line drug for treating bipolar disorder','Lithium'], ['Selective serotonin reuptake inhibitors are commonly used to treat this condition','Depression'], ['Drug class used to treat schizophrenia','Antipsychotics'], ['Medication used for acute treatment of migraine attacks','Triptans'], ['This drug is used to treat Parkinson\\'s disease by replenishing dopamine','Levodopa']],\
+    [['Drug used to treat type 1 diabetes','Insulin'], ['Oral medication that decreases glucose production in the liver','Metformin'], ['This thyroid hormone replacement is used for hypothyroidism','Levothyroxine'], ['A class of drugs used to treat osteoporosis by inhibiting bone resorption','Bisphosphonates'], ['Corticosteroids are primarily used to suppress this physiological response','Inflammation']],\
+    [['This chemotherapy drug inhibits topoisomerase II','Doxorubicin'], ['An antimetabolite used in chemotherapy, often causing myelosuppression','Methotrexate'], ['Chemotherapy drug that stabilizes microtubules, preventing cell division','Paclitaxel'], ['This targeted therapy blocks the BCR-ABL tyrosine kinase','Imatinib'], ['A common severe side effect of most chemotherapy drugs','Myelosuppression']],\
+    [['Grapefruit juice can inhibit this enzyme, leading to increased drug levels','CYP3A4'], ['Warfarin\\'s effect is increased when taken with this class of antibiotics','Macrolides'], ['This class of drugs induces cytochrome P450 enzymes, reducing the effect of other drugs','Anticonvulsants'], ['Taking MAOIs with SSRIs can lead to this life-threatening condition','Serotonin syndrome'], ['Alcohol consumption while taking this drug causes severe vomiting','Disulfiram']],\
+    [['An antidote used for acetaminophen overdose','N-acetylcysteine'], ['An antidote used for opioid overdose','Naloxone'], ['The drug of choice for treating severe digoxin toxicity','Digoxin immune Fab'], ['Chelating agent used to treat heavy metal poisoning like lead','EDTA'], ['This is the process of making a poisonous substance less harmful','Detoxification']]\
+  ];\
+  for (let c = 0; c < 6; c++) \{\
+    g.rounds.doubleJeopardy.categories[c].name = cats2[c];\
+    for (let r = 0; r < 5; r++) \{\
+      g.rounds.doubleJeopardy.categories[c].clues[r].question = clues2[c][r][0];\
+      g.rounds.doubleJeopardy.categories[c].clues[r].answer = clues2[c][r][1];\
+    \}\
+  \}\
+  g.rounds.doubleJeopardy.categories[0].clues[2].isDailyDouble = true;\
+  g.rounds.doubleJeopardy.categories[4].clues[4].isDailyDouble = true;\
+\
+  g.rounds.finalJeopardy = \{\
+    category: 'MECHANISM OF ACTION',\
+    question: 'This class of anticoagulants works by inhibiting Vitamin K epoxide reductase, preventing the activation of clotting factors II, VII, IX, and X.',\
+    answer: 'What is Warfarin?'\
+  \};\
+  return g;\
+\}\
+\
+let state = \{\
+  game: defaultGame(),\
+  players: [\
+    \{name: 'Player 1', color: PLAYER_COLORS[0], score: 0\},\
+    \{name: 'Player 2', color: PLAYER_COLORS[1], score: 0\},\
+    \{name: 'Player 3', color: PLAYER_COLORS[2], score: 0\}\
+  ],\
+  currentRound: 'jeopardy',\
+  usedClues: \{\}, // round -> Set of "catIndex-clueIndex"\
+  currentPlayer: 0,\
+  activeClue: null, // \{round, catIndex, clueIndex, value, question, answer, isDailyDouble\}\
+  ddWager: 0,\
+  ddPlayer: 0,\
+  fjWagers: \{\},\
+  fjRevealed: \{\},\
+  fjAnswerRevealed: false\
+\};\
+\
+function loadState() \{\
+  try \{\
+    const raw = localStorage.getItem(STORAGE_KEY);\
+    if (raw) \{\
+      const parsed = JSON.parse(raw);\
+      state.game = parsed.game || defaultGame();\
+      state.players = parsed.players || state.players;\
+    \}\
+  \} catch (e) \{ console.warn('Load state failed', e); \}\
+\}\
+function saveState() \{\
+  try \{\
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(\{\
+      game: state.game,\
+      players: state.players\
+    \}));\
+  \} catch (e) \{ console.warn('Save state failed', e); \}\
+\}\
+\
+// ---------- UTILITIES ----------\
+function $(sel) \{ return document.querySelector(sel); \}\
+function $$(sel) \{ return document.querySelectorAll(sel); \}\
+function showScreen(id) \{\
+  $$('.screen').forEach(s => s.classList.remove('active'));\
+  document.getElementById(id).classList.add('active');\
+\}\
+function toast(msg, ms=2200) \{\
+  const t = $('#toast');\
+  t.textContent = msg;\
+  t.classList.add('show');\
+  clearTimeout(toast._t);\
+  toast._t = setTimeout(() => t.classList.remove('show'), ms);\
+\}\
+function fmtMoney(n) \{\
+  const sign = n < 0 ? '-' : '';\
+  return sign + '$' + Math.abs(n).toLocaleString();\
+\}\
+\
+// ---------- SETUP SCREEN ----------\
+function renderSetupPlayers() \{\
+  const container = $('#setup-players');\
+  container.innerHTML = '';\
+  state.players.forEach((p, i) => \{\
+    const row = document.createElement('div');\
+    row.className = 'player-row';\
+    row.innerHTML = `\
+      <div class="swatch" style="background:$\{p.color\}">\
+        <input type="color" value="$\{p.color\}" data-i="$\{i\}">\
+      </div>\
+      <input type="text" value="$\{p.name\}" data-i="$\{i\}" maxlength="20">\
+      <button class="remove-btn" data-i="$\{i\}" title="Remove player"><i class="fa-solid fa-xmark"></i></button>\
+    `;\
+    container.appendChild(row);\
+  \});\
+  container.querySelectorAll('input[type="color"]').forEach(el => \{\
+    el.addEventListener('input', e => \{\
+      const i = +e.target.dataset.i;\
+      state.players[i].color = e.target.value;\
+      e.target.parentElement.style.background = e.target.value;\
+      saveState();\
+    \});\
+  \});\
+  container.querySelectorAll('input[type="text"]').forEach(el => \{\
+    el.addEventListener('input', e => \{\
+      const i = +e.target.dataset.i;\
+      state.players[i].name = e.target.value || `Player $\{i+1\}`;\
+      saveState();\
+    \});\
+  \});\
+  container.querySelectorAll('.remove-btn').forEach(el => \{\
+    el.addEventListener('click', e => \{\
+      const i = +e.currentTarget.dataset.i;\
+      if (state.players.length <= 2) \{ toast('Need at least 2 players'); return; \}\
+      state.players.splice(i, 1);\
+      renderSetupPlayers();\
+      saveState();\
+    \});\
+  \});\
+\}\
+\
+function populateSavedGames() \{\
+  // For now, just list the current game\
+  const sel = $('#saved-games-select');\
+  sel.innerHTML = '<option value="">\'97 Current saved game \'97</option>';\
+\}\
+\
+// ---------- EDITOR ----------\
+let editorCurrentRound = 'jeopardy';\
+let editingCell = null; // \{round, catIndex, clueIndex\} or \{round, catIndex\} for header\
+\
+function renderEditor() \{\
+  $('#editor-game-title').textContent = state.game.title;\
+  if (editorCurrentRound === 'finalJeopardy') \{\
+    $('#editor-board-container').style.display = 'none';\
+    $('#final-editor-container').style.display = 'block';\
+    $('#fj-category-input').value = state.game.rounds.finalJeopardy.category;\
+    $('#fj-clue-input').value = state.game.rounds.finalJeopardy.question;\
+    $('#fj-answer-input').value = state.game.rounds.finalJeopardy.answer;\
+    return;\
+  \}\
+  $('#editor-board-container').style.display = 'block';\
+  $('#final-editor-container').style.display = 'none';\
+\
+  const round = state.game.rounds[editorCurrentRound];\
+  const container = $('#editor-board-container');\
+  container.innerHTML = '';\
+  const board = document.createElement('div');\
+  board.className = 'editor-board';\
+\
+  // Top-left empty cell\
+  const empty = document.createElement('div');\
+  empty.className = 'editor-cell';\
+  board.appendChild(empty);\
+\
+  // Category headers\
+  round.categories.forEach((cat, ci) => \{\
+    const cell = document.createElement('div');\
+    cell.className = 'editor-cell header';\
+    cell.textContent = cat.name || `Category $\{ci+1\}`;\
+    cell.addEventListener('click', () => openEditHeader(editorCurrentRound, ci));\
+    board.appendChild(cell);\
+  \});\
+\
+  // Each row\
+  round.values.forEach((val, ri) => \{\
+    const label = document.createElement('div');\
+    label.className = 'editor-cell row-label';\
+    label.textContent = '$' + val;\
+    board.appendChild(label);\
+\
+    round.categories.forEach((cat, ci) => \{\
+      const clue = cat.clues[ri];\
+      const cell = document.createElement('div');\
+      cell.className = 'editor-cell';\
+      let html = `<div>$$\{val\}</div>`;\
+      if (clue.question) \{\
+        html += `<div class="clue-preview">$\{escapeHtml(clue.question.slice(0, 60))\}$\{clue.question.length > 60 ? '\'85' : ''\}</div>`;\
+        html += `<div class="clue-preview" style="color:var(--jep-gold); opacity:0.7">A: $\{escapeHtml(clue.answer.slice(0, 40))\}$\{clue.answer.length > 40 ? '\'85' : ''\}</div>`;\
+      \} else \{\
+        html += `<div class="cat-name">Empty \'97 click to edit</div>`;\
+      \}\
+      if (clue.isDailyDouble) html += `<div class="dd-badge">DD</div>`;\
+      cell.innerHTML = html;\
+      cell.addEventListener('click', () => openEditClue(editorCurrentRound, ci, ri));\
+      board.appendChild(cell);\
+    \});\
+  \});\
+\
+  container.appendChild(board);\
+\}\
+\
+function escapeHtml(s) \{\
+  return String(s||'').replace(/[&<>"']/g, c => (\{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'\}[c]));\
+\}\
+\
+function openEditHeader(round, catIndex) \{\
+  editingCell = \{round, catIndex, type: 'header'\};\
+  const cat = state.game.rounds[round].categories[catIndex];\
+  $('#edit-modal-title').textContent = `Edit Category $\{catIndex+1\}`;\
+  $('#edit-modal-body').innerHTML = `\
+    <div class="field">\
+      <label>Category Name</label>\
+      <input type="text" id="edit-cat-name" value="$\{escapeHtml(cat.name)\}" maxlength="40">\
+    </div>\
+  `;\
+  $('#edit-modal').classList.add('active');\
+  setTimeout(() => $('#edit-cat-name').focus(), 50);\
+\}\
+\
+function openEditClue(round, catIndex, clueIndex) \{\
+  editingCell = \{round, catIndex, clueIndex, type: 'clue'\};\
+  const clue = state.game.rounds[round].categories[catIndex].clues[clueIndex];\
+  $('#edit-modal-title').textContent = `Edit Clue \'97 $$\{clue.value\}`;\
+  $('#edit-modal-body').innerHTML = `\
+    <div class="field">\
+      <label>Question / Clue</label>\
+      <textarea id="edit-clue-q" placeholder="The clue shown on screen...">$\{escapeHtml(clue.question)\}</textarea>\
+    </div>\
+    <div class="field">\
+      <label>Answer</label>\
+      <input type="text" id="edit-clue-a" value="$\{escapeHtml(clue.answer)\}" placeholder="What is...">\
+    </div>\
+    <div class="field">\
+      <label class="checkbox-field">\
+        <input type="checkbox" id="edit-clue-dd" $\{clue.isDailyDouble ? 'checked' : ''\}>\
+        <span>Daily Double</span>\
+      </label>\
+    </div>\
+  `;\
+  $('#edit-modal').classList.add('active');\
+  setTimeout(() => $('#edit-clue-q').focus(), 50);\
+\}\
+\
+function saveEditModal() \{\
+  if (!editingCell) return;\
+  if (editingCell.type === 'header') \{\
+    const name = $('#edit-cat-name').value.trim() || `Category $\{editingCell.catIndex+1\}`;\
+    state.game.rounds[editingCell.round].categories[editingCell.catIndex].name = name;\
+  \} else if (editingCell.type === 'clue') \{\
+    const clue = state.game.rounds[editingCell.round].categories[editingCell.catIndex].clues[editingCell.clueIndex];\
+    clue.question = $('#edit-clue-q').value.trim();\
+    clue.answer = $('#edit-clue-a').value.trim();\
+    clue.isDailyDouble = $('#edit-clue-dd').checked;\
+  \}\
+  $('#edit-modal').classList.remove('active');\
+  editingCell = null;\
+  saveState();\
+  renderEditor();\
+  AudioEngine.playClick();\
+\}\
+function cancelEditModal() \{\
+  $('#edit-modal').classList.remove('active');\
+  editingCell = null;\
+\}\
+function clearEditModal() \{\
+  if (!editingCell) return;\
+  if (editingCell.type === 'header') \{\
+    state.game.rounds[editingCell.round].categories[editingCell.catIndex].name = `Category $\{editingCell.catIndex+1\}`;\
+  \} else \{\
+    const clue = state.game.rounds[editingCell.round].categories[editingCell.catIndex].clues[editingCell.clueIndex];\
+    clue.question = '';\
+    clue.answer = '';\
+    clue.isDailyDouble = false;\
+  \}\
+  $('#edit-modal').classList.remove('active');\
+  editingCell = null;\
+  saveState();\
+  renderEditor();\
+  toast('Cleared');\
+\}\
+\
+// ---------- GAME ----------\
+function startGame() \{\
+  // Reset scores & used clues\
+  state.players.forEach(p => p.score = 0);\
+  state.usedClues = \{\};\
+  state.currentRound = 'jeopardy';\
+  state.activeClue = null;\
+  state.currentPlayer = 0;\
+  state.fjWagers = \{\};\
+  state.fjRevealed = \{\};\
+  state.fjAnswerRevealed = false;\
+  AudioEngine.ensureCtx();\
+  AudioEngine.playTheme();\
+  if (AudioEngine.isMusicEnabled()) AudioEngine.startBgMusic();\
+  showScreen('game-screen');\
+  renderGame();\
+\}\
+\
+function renderGame() \{\
+  $('#game-title-display').textContent = state.game.title;\
+  const r = state.game.rounds[state.currentRound];\
+  $('#game-round-label').textContent = r.name + ' Round';\
+  $('#current-round-name').textContent = r.name;\
+\
+  // Scoreboard\
+  const sb = $('#scoreboard');\
+  sb.innerHTML = '';\
+  state.players.forEach((p, i) => \{\
+    const card = document.createElement('div');\
+    card.className = 'player-card' + (i === state.currentPlayer ? ' active' : '');\
+    card.innerHTML = `\
+      <div class="player-color" style="background:$\{p.color\}"></div>\
+      <div class="player-info">\
+        <div class="player-name">$\{escapeHtml(p.name)\}</div>\
+        <div class="player-score $\{p.score < 0 ? 'negative' : ''\}">$\{fmtMoney(p.score)\}</div>\
+      </div>\
+      <div class="score-controls">\
+        <button class="score-btn plus" data-i="$\{i\}" data-amt="100" title="+100">+100</button>\
+        <button class="score-btn minus" data-i="$\{i\}" data-amt="-100" title="-100">-100</button>\
+      </div>\
+    `;\
+    card.addEventListener('click', (e) => \{\
+      if (e.target.closest('.score-btn')) return;\
+      state.currentPlayer = i;\
+      AudioEngine.playClick();\
+      renderGame();\
+    \});\
+    sb.appendChild(card);\
+  \});\
+  sb.querySelectorAll('.score-btn').forEach(btn => \{\
+    btn.addEventListener('click', e => \{\
+      e.stopPropagation();\
+      const i = +btn.dataset.i;\
+      const amt = +btn.dataset.amt;\
+      state.players[i].score += amt;\
+      AudioEngine.playClick();\
+      saveState();\
+      renderGame();\
+    \});\
+  \});\
+\
+  // Board\
+  const board = $('#board');\
+  board.innerHTML = '';\
+  r.categories.forEach((cat, ci) => \{\
+    const cell = document.createElement('div');\
+    cell.className = 'board-cat';\
+    cell.textContent = cat.name;\
+    board.appendChild(cell);\
+  \});\
+  r.values.forEach((val, ri) => \{\
+    r.categories.forEach((cat, ci) => \{\
+      const clue = cat.clues[ri];\
+      const used = state.usedClues[state.currentRound] && state.usedClues[state.currentRound].has(`$\{ci\}-$\{ri\}`);\
+      const cell = document.createElement('div');\
+      cell.className = 'clue' + (used ? ' used' : '');\
+      cell.textContent = '$' + val;\
+      if (!used) \{\
+        cell.addEventListener('click', () => openClue(state.currentRound, ci, ri));\
+      \}\
+      board.appendChild(cell);\
+    \});\
+  \});\
+\
+  // Clues remaining\
+  const usedSet = state.usedClues[state.currentRound] || new Set();\
+  const remaining = (r.categories.length * r.values.length) - usedSet.size;\
+  $('#clues-remaining').textContent = remaining;\
+\}\
+\
+function openClue(round, catIndex, clueIndex) \{\
+  const clue = state.game.rounds[round].categories[catIndex].clues[clueIndex];\
+  if (!clue.question && !clue.answer) \{\
+    toast('This clue is empty. Edit it first.');\
+    return;\
+  \}\
+  if (clue.isDailyDouble) \{\
+    showDailyDouble(round, catIndex, clueIndex, clue);\
+    return;\
+  \}\
+  showClueModal(round, catIndex, clueIndex, clue, clue.value);\
+\}\
+\
+function showDailyDouble(round, catIndex, clueIndex, clue) \{\
+  state.activeClue = \{round, catIndex, clueIndex, clue, value: clue.value, isDailyDouble: true\};\
+  AudioEngine.playDailyDouble();\
+  const overlay = $('#dd-overlay');\
+  overlay.classList.add('active');\
+  // Populate player select\
+  const sel = $('#dd-player-select');\
+  sel.innerHTML = '';\
+  state.players.forEach((p, i) => \{\
+    const opt = document.createElement('option');\
+    opt.value = i;\
+    opt.textContent = p.name + ' (' + fmtMoney(p.score) + ')';\
+    sel.appendChild(opt);\
+  \});\
+  sel.value = state.currentPlayer;\
+  // Default wager: max of value or player's score\
+  const player = state.players[state.currentPlayer];\
+  const defaultWager = Math.max(clue.value, Math.max(player.score, 1000));\
+  $('#dd-wager-input').value = defaultWager;\
+  $('#dd-wager-input').min = 5;\
+  $('#dd-player-name').textContent = state.players[state.currentPlayer].name + ' \'97 place your wager!';\
+\}\
+\
+function showClueModal(round, catIndex, clueIndex, clue, value) \{\
+  state.activeClue = \{round, catIndex, clueIndex, clue, value, isDailyDouble: false\};\
+  AudioEngine.playReveal();\
+  $('#qmodal-cat').textContent = state.game.rounds[round].categories[catIndex].name;\
+  $('#qmodal-value').textContent = '$' + value;\
+  $('#qmodal-text').textContent = clue.question;\
+  $('#qmodal-answer').textContent = clue.answer || '\'97 no answer set \'97';\
+  $('#qmodal-answer').classList.remove('show');\
+  $('#qmodal-instruction').textContent = 'Click anywhere on the clue to reveal answer';\
+  renderScoringRow();\
+  $('#question-modal').classList.add('active');\
+\}\
+\
+function renderScoringRow() \{\
+  const row = $('#qmodal-scoring');\
+  row.innerHTML = '';\
+  state.players.forEach((p, i) => \{\
+    const card = document.createElement('div');\
+    card.className = 'score-card' + (i === state.currentPlayer ? ' active' : '');\
+    const value = state.activeClue.isDailyDouble ? state.ddWager : state.activeClue.value;\
+    card.innerHTML = `\
+      <div class="sc-name"><span class="dot" style="background:$\{p.color\}"></span>$\{escapeHtml(p.name)\} \'97 $\{fmtMoney(p.score)\}</div>\
+      <div class="sc-actions">\
+        <button class="sc-btn pick" data-i="$\{i\}" title="Make active player">Pick</button>\
+        <button class="sc-btn correct" data-i="$\{i\}" title="Correct (+$\{value\})">+$\{value\}</button>\
+        <button class="sc-btn wrong" data-i="$\{i\}" title="Wrong (-$\{value\})">-$\{value\}</button>\
+      </div>\
+    `;\
+    row.appendChild(card);\
+  \});\
+  row.querySelectorAll('.sc-btn.pick').forEach(b => b.addEventListener('click', () => \{\
+    state.currentPlayer = +b.dataset.i;\
+    AudioEngine.playClick();\
+    renderScoringRow();\
+  \}));\
+  row.querySelectorAll('.sc-btn.correct').forEach(b => b.addEventListener('click', () => \{\
+    const i = +b.dataset.i;\
+    const value = state.activeClue.isDailyDouble ? state.ddWager : state.activeClue.value;\
+    state.players[i].score += value;\
+    state.currentPlayer = i;\
+    AudioEngine.playCorrect();\
+    saveState();\
+    closeClueAndMarkUsed();\
+  \}));\
+  row.querySelectorAll('.sc-btn.wrong').forEach(b => b.addEventListener('click', () => \{\
+    const i = +b.dataset.i;\
+    const value = state.activeClue.isDailyDouble ? state.ddWager : state.activeClue.value;\
+    state.players[i].score -= value;\
+    AudioEngine.playWrong();\
+    saveState();\
+    renderScoringRow();\
+    renderGame();\
+  \}));\
+\}\
+\
+function closeClueAndMarkUsed() \{\
+  const \{round, catIndex, clueIndex\} = state.activeClue;\
+  if (!state.usedClues[round]) state.usedClues[round] = new Set();\
+  state.usedClues[round].add(`$\{catIndex\}-$\{clueIndex\}`);\
+  state.activeClue = null;\
+  $('#question-modal').classList.remove('active');\
+  $('#dd-overlay').classList.remove('active');\
+  renderGame();\
+  // Check if round complete\
+  const r = state.game.rounds[round];\
+  const usedSet = state.usedClues[round];\
+  if (usedSet.size === r.categories.length * r.values.length) \{\
+    setTimeout(() => \{\
+      if (round === 'jeopardy') showRoundTransition('DOUBLE JEOPARDY', () => \{\
+        state.currentRound = 'doubleJeopardy';\
+        renderGame();\
+      \});\
+      else if (round === 'doubleJeopardy') \{\
+        showRoundTransition('FINAL JEOPARDY', () => startFinalJeopardy());\
+      \}\
+    \}, 600);\
+  \}\
+\}\
+\
+function showRoundTransition(title, cb) \{\
+  $('#rt-title').textContent = title;\
+  $('#round-transition').classList.add('active');\
+  AudioEngine.playTheme();\
+  setTimeout(() => \{\
+    $('#round-transition').classList.remove('active');\
+    cb();\
+  \}, 2200);\
+\}\
+\
+// ---------- FINAL JEOPARDY ----------\
+function startFinalJeopardy() \{\
+  state.currentRound = 'finalJeopardy';\
+  state.fjWagers = \{\};\
+  state.fjRevealed = \{\};\
+  state.fjAnswerRevealed = false;\
+  const fj = state.game.rounds.finalJeopardy;\
+  if (!fj.question || !fj.answer) \{\
+    toast('Final Jeopardy not configured. Edit it first.');\
+    backToSetup();\
+    return;\
+  \}\
+  $('#fj-cat').textContent = fj.category;\
+  $('#fj-question').textContent = fj.question;\
+  $('#fj-answer').textContent = fj.answer;\
+  $('#fj-answer').classList.remove('show');\
+  $('#fj-reveal-btn').style.display = 'inline-flex';\
+  $('#fj-finalize-btn').style.display = 'none';\
+  renderFjWagers();\
+  $('#fj-screen').classList.add('active');\
+  AudioEngine.playFinalJeopardyThink();\
+\}\
+\
+function renderFjWagers() \{\
+  const c = $('#fj-wagers');\
+  c.innerHTML = '';\
+  state.players.forEach((p, i) => \{\
+    const card = document.createElement('div');\
+    card.className = 'fj-wager-card';\
+    const maxWager = Math.max(p.score, 1000);\
+    const currentWager = state.fjWagers[i] || '';\
+    const revealed = state.fjRevealed[i];\
+    card.innerHTML = `\
+      <div class="fwc-name"><span style="display:inline-block;width:12px;height:12px;background:$\{p.color\};border-radius:3px;margin-right:6px;"></span>$\{escapeHtml(p.name)\}</div>\
+      <div class="fwc-score">$\{fmtMoney(p.score)\}</div>\
+      <input type="number" class="fwc-input" data-i="$\{i\}" placeholder="Wager (max $\{maxWager\})" value="$\{currentWager\}" min="0" max="$\{Math.max(maxWager,0)\}" $\{p.score <= 0 ? 'disabled' : ''\} $\{revealed ? 'disabled' : ''\}>\
+      <div class="fwc-actions">\
+        <button class="fwc-btn correct" data-i="$\{i\}" $\{revealed ? 'disabled' : ''\}>Correct</button>\
+        <button class="fwc-btn wrong" data-i="$\{i\}" $\{revealed ? 'disabled' : ''\}>Wrong</button>\
+      </div>\
+      $\{revealed ? `<div style="text-align:center;font-family:'Oswald';letter-spacing:1px;font-size:11px;color:$\{revealed === 'correct' ? 'var(--jep-green)' : '#ff6b6b'\};margin-top:8px;">$\{revealed.toUpperCase()\} ($\{fmtMoney(state.fjWagers[i] || 0)\})</div>` : ''\}\
+    `;\
+    c.appendChild(card);\
+  \});\
+  c.querySelectorAll('.fwc-input').forEach(inp => \{\
+    inp.addEventListener('change', e => \{\
+      const i = +e.target.dataset.i;\
+      let v = parseInt(e.target.value) || 0;\
+      const max = Math.max(state.players[i].score, 1000);\
+      v = Math.min(Math.max(v, 0), max);\
+      state.fjWagers[i] = v;\
+      e.target.value = v;\
+    \});\
+  \});\
+  c.querySelectorAll('.fwc-btn.correct').forEach(b => b.addEventListener('click', () => \{\
+    const i = +b.dataset.i;\
+    const w = state.fjWagers[i] || 0;\
+    state.players[i].score += w;\
+    state.fjRevealed[i] = 'correct';\
+    AudioEngine.playCorrect();\
+    saveState();\
+    renderFjWagers();\
+    renderGame();\
+  \}));\
+  c.querySelectorAll('.fwc-btn.wrong').forEach(b => b.addEventListener('click', () => \{\
+    const i = +b.dataset.i;\
+    const w = state.fjWagers[i] || 0;\
+    state.players[i].score -= w;\
+    state.fjRevealed[i] = 'wrong';\
+    AudioEngine.playWrong();\
+    saveState();\
+    renderFjWagers();\
+    renderGame();\
+  \}));\
+\}\
+\
+function showFjAnswer() \{\
+  $('#fj-answer').classList.add('show');\
+  state.fjAnswerRevealed = true;\
+  $('#fj-reveal-btn').style.display = 'none';\
+  $('#fj-finalize-btn').style.display = 'inline-flex';\
+  AudioEngine.playReveal();\
+\}\
+\
+function finalizeFj() \{\
+  $('#fj-screen').classList.remove('active');\
+  renderGame();\
+  // Determine winner\
+  const sorted = [...state.players].sort((a,b) => b.score - a.score);\
+  const winner = sorted[0];\
+  toast(`Winner: $\{winner.name\} with $\{fmtMoney(winner.score)\}!`, 5000);\
+  AudioEngine.playTheme();\
+\}\
+\
+function backToSetup() \{\
+  AudioEngine.stopBgMusic();\
+  showScreen('setup-screen');\
+\}\
+\
+// ---------- EXPORT / IMPORT ----------\
+function exportGame() \{\
+  const data = JSON.stringify(\{\
+    game: state.game,\
+    players: state.players\
+  \}, null, 2);\
+  const blob = new Blob([data], \{type: 'application/json'\});\
+  const url = URL.createObjectURL(blob);\
+  const a = document.createElement('a');\
+  a.href = url;\
+  a.download = (state.game.title || 'jeopardy') + '.json';\
+  a.click();\
+  URL.revokeObjectURL(url);\
+  toast('Exported game JSON');\
+\}\
+function importGame(file) \{\
+  const reader = new FileReader();\
+  reader.onload = e => \{\
+    try \{\
+      const data = JSON.parse(e.target.result);\
+      if (data.game) state.game = data.game;\
+      if (data.players) state.players = data.players;\
+      saveState();\
+      renderSetupPlayers();\
+      $('#game-title-input').value = state.game.title;\
+      toast('Game imported');\
+    \} catch (err) \{\
+      toast('Import failed \'97 invalid JSON');\
+    \}\
+  \};\
+  reader.readAsText(file);\
+\}\
+\
+// ---------- EVENT WIRING ----------\
+function wireEvents() \{\
+  // Setup\
+  $('#add-player-btn').addEventListener('click', () => \{\
+    if (state.players.length >= 6) \{ toast('Max 6 players'); return; \}\
+    state.players.push(\{\
+      name: `Player $\{state.players.length+1\}`,\
+      color: PLAYER_COLORS[state.players.length % PLAYER_COLORS.length],\
+      score: 0\
+    \});\
+    renderSetupPlayers();\
+    saveState();\
+  \});\
+  $('#start-game-btn').addEventListener('click', () => \{\
+    if (state.players.length < 2) \{ toast('Add at least 2 players'); return; \}\
+    startGame();\
+  \});\
+  $('#open-editor-btn').addEventListener('click', () => \{\
+    state.game.title = $('#game-title-input').value || 'Pharmacology Jeopardy';\
+    saveState();\
+    showScreen('editor-screen');\
+    renderEditor();\
+  \});\
+  $('#game-title-input').addEventListener('input', e => \{\
+    state.game.title = e.target.value;\
+    saveState();\
+  \});\
+  $('#export-btn').addEventListener('click', exportGame);\
+  $('#import-btn').addEventListener('click', () => $('#import-file').click());\
+  $('#import-file').addEventListener('change', e => \{\
+    if (e.target.files[0]) importGame(e.target.files[0]);\
+    e.target.value = '';\
+  \});\
+  $('#load-sample-btn').addEventListener('click', () => \{\
+    state.game = sampleGame();\
+    saveState();\
+    $('#game-title-input').value = state.game.title;\
+    toast('Sample game loaded');\
+  \});\
+\
+  // Audio settings\
+  $('#sound-effects-check').addEventListener('change', e => \{\
+    AudioEngine.setSfxEnabled(e.target.checked);\
+  \});\
+  $('#bg-music-check').addEventListener('change', e => \{\
+    AudioEngine.setMusicEnabled(e.target.checked);\
+    $('#music-toggle-btn').classList.toggle('active', e.target.checked);\
+  \});\
+\
+  // Editor\
+  $$('.editor-tab').forEach(t => t.addEventListener('click', () => \{\
+    $$('.editor-tab').forEach(x => x.classList.remove('active'));\
+    t.classList.add('active');\
+    editorCurrentRound = t.dataset.round;\
+    renderEditor();\
+  \}));\
+  $('#editor-back-btn').addEventListener('click', () => \{\
+    saveState();\
+    showScreen('setup-screen');\
+  \});\
+  $('#editor-play-btn').addEventListener('click', () => \{\
+    saveState();\
+    startGame();\
+  \});\
+  $('#fj-category-input').addEventListener('input', e => \{\
+    state.game.rounds.finalJeopardy.category = e.target.value;\
+    saveState();\
+  \});\
+  $('#fj-clue-input').addEventListener('input', e => \{\
+    state.game.rounds.finalJeopardy.question = e.target.value;\
+    saveState();\
+  \});\
+  $('#fj-answer-input').addEventListener('input', e => \{\
+    state.game.rounds.finalJeopardy.answer = e.target.value;\
+    saveState();\
+  \});\
+  $('#edit-save-btn').addEventListener('click', saveEditModal);\
+  $('#edit-cancel-btn').addEventListener('click', cancelEditModal);\
+  $('#edit-clear-btn').addEventListener('click', clearEditModal);\
+  $('#edit-modal').addEventListener('click', e => \{\
+    if (e.target.id === 'edit-modal') cancelEditModal();\
+  \});\
+\
+  // Game header\
+  $('#game-home-btn').addEventListener('click', backToSetup);\
+  $('#fullscreen-btn').addEventListener('click', () => \{\
+    if (!document.fullscreenElement) \{\
+      document.documentElement.requestFullscreen?.();\
+      $('#fullscreen-btn').innerHTML = '<i class="fa-solid fa-compress"></i>';\
+    \} else \{\
+      document.exitFullscreen?.();\
+      $('#fullscreen-btn').innerHTML = '<i class="fa-solid fa-expand"></i>';\
+    \}\
+  \});\
+  document.addEventListener('fullscreenchange', () => \{\
+    $('#fullscreen-btn').innerHTML = document.fullscreenElement\
+      ? '<i class="fa-solid fa-compress"></i>'\
+      : '<i class="fa-solid fa-expand"></i>';\
+  \});\
+  $('#sound-toggle-btn').addEventListener('click', () => \{\
+    const on = !AudioEngine.isSfxEnabled();\
+    AudioEngine.setSfxEnabled(on);\
+    $('#sound-toggle-btn').classList.toggle('active', on);\
+    $('#sound-effects-check').checked = on;\
+    if (on) AudioEngine.playClick();\
+    toast('Sound effects ' + (on ? 'ON' : 'OFF'));\
+  \});\
+  $('#music-toggle-btn').addEventListener('click', () => \{\
+    const on = !AudioEngine.isMusicEnabled();\
+    AudioEngine.setMusicEnabled(on);\
+    $('#music-toggle-btn').classList.toggle('active', on);\
+    $('#bg-music-check').checked = on;\
+    toast('Background music ' + (on ? 'ON' : 'OFF'));\
+  \});\
+  $('#prev-round-btn').addEventListener('click', () => \{\
+    if (state.currentRound === 'doubleJeopardy') \{\
+      state.currentRound = 'jeopardy';\
+      renderGame();\
+    \} else if (state.currentRound === 'finalJeopardy') \{\
+      $('#fj-screen').classList.remove('active');\
+      state.currentRound = 'doubleJeopardy';\
+      renderGame();\
+    \}\
+  \});\
+  $('#next-round-btn').addEventListener('click', () => \{\
+    if (state.currentRound === 'jeopardy') \{\
+      state.currentRound = 'doubleJeopardy';\
+      renderGame();\
+    \} else if (state.currentRound === 'doubleJeopardy') \{\
+      startFinalJeopardy();\
+    \}\
+  \});\
+  $('#reset-scores-btn').addEventListener('click', () => \{\
+    if (!confirm('Reset all scores to $0?')) return;\
+    state.players.forEach(p => p.score = 0);\
+    state.usedClues = \{\};\
+    state.currentRound = 'jeopardy';\
+    saveState();\
+    renderGame();\
+    toast('Scores reset');\
+  \});\
+\
+  // Question modal\
+  $('#qmodal-close').addEventListener('click', () => \{\
+    state.activeClue = null;\
+    $('#question-modal').classList.remove('active');\
+  \});\
+  $('#qmodal-back').addEventListener('click', () => \{\
+    state.activeClue = null;\
+    $('#question-modal').classList.remove('active');\
+  \});\
+  $('#qmodal-reveal').addEventListener('click', revealAnswer);\
+  $('#qmodal-text').addEventListener('click', revealAnswer);\
+  function revealAnswer() \{\
+    if (!$('#qmodal-answer').classList.contains('show')) \{\
+      $('#qmodal-answer').classList.add('show');\
+      $('#qmodal-instruction').textContent = 'Award points to a player, then close';\
+      AudioEngine.playReveal();\
+    \}\
+  \}\
+\
+  // Daily Double\
+  $('#dd-confirm').addEventListener('click', () => \{\
+    const playerIdx = +$('#dd-player-select').value;\
+    const wager = parseInt($('#dd-wager-input').value) || 0;\
+    const player = state.players[playerIdx];\
+    const maxWager = Math.max(player.score, 1000);\
+    if (wager < 5) \{ toast('Wager must be at least $5'); return; \}\
+    if (wager > maxWager) \{ toast(`Max wager is $\{fmtMoney(maxWager)\}`); return; \}\
+    state.currentPlayer = playerIdx;\
+    state.ddWager = wager;\
+    $('#dd-overlay').classList.remove('active');\
+    const ac = state.activeClue;\
+    showClueModal(ac.round, ac.catIndex, ac.clueIndex, ac.clue, wager);\
+  \});\
+  $('#dd-player-select').addEventListener('change', e => \{\
+    const idx = +e.target.value;\
+    state.currentPlayer = idx;\
+    const player = state.players[idx];\
+    const ac = state.activeClue;\
+    const defaultWager = Math.max(ac.clue.value, Math.max(player.score, 1000));\
+    $('#dd-wager-input').value = defaultWager;\
+    $('#dd-player-name').textContent = player.name + ' \'97 place your wager!';\
+  \});\
+\
+  // Final Jeopardy\
+  $('#fj-reveal-btn').addEventListener('click', showFjAnswer);\
+  $('#fj-finalize-btn').addEventListener('click', finalizeFj);\
+  $('#fj-back-btn').addEventListener('click', () => \{\
+    $('#fj-screen').classList.remove('active');\
+    state.currentRound = 'doubleJeopardy';\
+    renderGame();\
+  \});\
+\
+  // Keyboard shortcuts\
+  document.addEventListener('keydown', e => \{\
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;\
+    if ($('#question-modal').classList.contains('active')) \{\
+      if (e.key === 'Escape') \{\
+        state.activeClue = null;\
+        $('#question-modal').classList.remove('active');\
+      \} else if (e.key === ' ' || e.key === 'Enter') \{\
+        e.preventDefault();\
+        revealAnswer();\
+      \}\
+    \} else if ($('#dd-overlay').classList.contains('active')) \{\
+      if (e.key === 'Enter') $('#dd-confirm').click();\
+    \} else if ($('#game-screen').classList.contains('active')) \{\
+      if (e.key === 'f' || e.key === 'F') $('#fullscreen-btn').click();\
+    \}\
+  \});\
+\}\
+\
+// ---------- INIT ----------\
+function init() \{\
+  loadState();\
+  renderSetupPlayers();\
+  populateSavedGames();\
+  $('#game-title-input').value = state.game.title;\
+  wireEvents();\
+  // Set initial audio toggle states\
+  $('#sound-toggle-btn').classList.toggle('active', AudioEngine.isSfxEnabled());\
+\}\
+\
+init();\
+</script>\
+</body>\
+</html>}
